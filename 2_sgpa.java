@@ -58,6 +58,8 @@ class Main {
 			students[i] = new Student(temp_usn, temp_name, credits, temp_grades);
 		}
 
-		System.out.println(students[0].give_sgpa());
+		for(int i = 0; i < students.length; i++){
+			System.out.println("The SGPA of student " + i+1 + " is " + students[i].give_sgpa());
+		}
 	}
 };
