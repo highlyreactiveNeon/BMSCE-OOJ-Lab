@@ -31,13 +31,11 @@ class Bank {
     
         float deposit(float value) {
             this.balance += value;
-
             return this.balance;
         }
 
         float withdraw(float value) {
             this.balance -= value;
-
             return this.balance;
         }
     }
@@ -51,22 +49,29 @@ class Bank {
         }
 
         void updateBalance(float time) {
-            this.balance = (float)Math.pow(this.balance*(1 + (interestR/interestN)), interestN*time);
+            this.balance = (float)(this.balance*Math.pow(1 + (interestR/interestN), interestN*time));
         }
 
         @Override
         float withdraw(float value) {
             this.updateBalance(1);
-            this.balance = this.balance - value;
+            return super.withdraw(value);
+        }
 
-            return this.balance;
+        @Override
+        float deposit(float value) {
+            this.updateBalance(1);
+            return super.deposit(value);
+        }
+
+        float deposit(float time, float value) {
+            this.updateBalance(time);
+            return super.deposit(value);
         }
 
         float withdraw(float time, float value) {
             this.updateBalance(time);
-            this.balance = this.balance - value;
-
-            return this.balance;
+            return super.withdraw(value);
         }
     }
 
@@ -87,9 +92,13 @@ class Bank {
         @Override
         float withdraw(float value) {
             this.updateBalance();
-            this.balance -= value;
+            return super.withdraw(value);
+        }
 
-            return this.balance;
+        @Override
+        float deposit(float value) {
+            this.updateBalance();
+            return super.deposit(value);
         }
     }
 }
